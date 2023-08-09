@@ -1,11 +1,11 @@
-import { useState } from "react";
-import EventCard from "../../components/EventCard";
-import Select from "../../components/Select";
-import { useData } from "../../contexts/DataContext";
-import Modal from "../Modal";
-import ModalEvent from "../ModalEvent";
+import { useState } from 'react';
+import EventCard from '../../components/EventCard';
+import Select from '../../components/Select';
+import { useData } from '../../contexts/DataContext';
+import Modal from '../Modal';
+import ModalEvent from '../ModalEvent';
 
-import "./style.css";
+import './style.css';
 
 const PER_PAGE = 9;
 
@@ -13,19 +13,18 @@ const EventList = () => {
   const { data, error } = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const filteredEvents = (
-    (!type
-      ? data?.events
-      : data?.events) || []
-  ).filter((event, index) => {
-    if (
-      (currentPage - 1) * PER_PAGE <= index &&
-      PER_PAGE * currentPage > index
-    ) {
-      return true;
+  const filteredEvents = ((!type ? data?.events : data?.events) || []).filter(
+    (event, index) => {
+      if (
+        (currentPage - 1) * PER_PAGE <= index &&
+        PER_PAGE * currentPage > index
+      ) {
+        return true;
+      }
+      return false;
     }
-    return false;
-  });
+  );
+
   const changeType = (evtType) => {
     setCurrentPage(1);
     setType(evtType);
@@ -36,13 +35,13 @@ const EventList = () => {
     <>
       {error && <div>An error occured</div>}
       {data === null ? (
-        "loading"
+        'loading'
       ) : (
         <>
           <h3 className="SelectTitle">Catégories</h3>
           <Select
             selection={Array.from(typeList)}
-            onChange={(value) => (value ? changeType(value) : changeType(null))}
+            onChange={(val) => (val ? changeType(val) : changeType(null))}
           />
           <div id="events" className="ListContainer">
             {filteredEvents.map((event) => (
