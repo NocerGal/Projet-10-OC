@@ -10,6 +10,12 @@ import './style.css';
 const PER_PAGE = 9;
 
 const EventList = () => {
+  // eslint-disable-next-line no-unused-vars
+  const [categorie, setCategorie] = useState('Toute');
+  const chooseCategorie = (cat) => {
+    setCategorie(cat);
+  };
+
   const { data, error } = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,6 +46,7 @@ const EventList = () => {
         <>
           <h3 className="SelectTitle">Catégories</h3>
           <Select
+            chooseCategorie={chooseCategorie}
             selection={Array.from(typeList)}
             onChange={(val) => (val ? changeType(val) : changeType(null))}
           />
