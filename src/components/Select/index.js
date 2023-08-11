@@ -22,8 +22,6 @@ const Select = ({
     chooseCategorie(newValue);
   };
 
-  console.log(selection);
-
   return (
     <div className={`SelectContainer ${type}`} data-testid="select-testid">
       {label && <div className="label">{label}</div>}

@@ -19,6 +19,8 @@ const EventList = () => {
   const { data, error } = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
+  // eslint-disable-next-line no-unused-vars
+  const [filterType, setFilterType] = useState(1);
   const filteredEvents = ((!type ? data?.events : data?.events) || []).filter(
     (event, index) => {
       if (
@@ -30,11 +32,14 @@ const EventList = () => {
       return false;
     }
   );
-
   const changeType = (evtType) => {
     setCurrentPage(1);
     setType(evtType);
+    setFilterType(evtType);
   };
+
+  console.log(type);
+
   const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
   const typeList = new Set(data?.events.map((event) => event.type));
   return (
@@ -48,7 +53,7 @@ const EventList = () => {
           <Select
             chooseCategorie={chooseCategorie}
             selection={Array.from(typeList)}
-            onChange={(val) => (val ? changeType(val) : changeType(null))}
+            onChange={(value) => (value ? changeType(value) : changeType(null))}
           />
           <div id="events" className="ListContainer">
             {filteredEvents.map((event) => (
