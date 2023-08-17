@@ -11,7 +11,6 @@ const Select = ({
   titleEmpty,
   label,
   type = 'normal',
-  chooseCategorie,
 }) => {
   const [value, setValue] = useState('Toutes');
   const [collapsed, setCollapsed] = useState(true);
@@ -19,7 +18,6 @@ const Select = ({
     onChange(newValue);
     setValue(newValue);
     setCollapsed(newValue);
-    chooseCategorie(newValue);
   };
 
   return (
@@ -91,7 +89,6 @@ Select.propTypes = {
   titleEmpty: PropTypes.bool,
   label: PropTypes.string,
   type: PropTypes.string,
-  chooseCategorie: PropTypes.func.isRequired,
 };
 
 Select.defaultProps = {

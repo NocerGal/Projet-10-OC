@@ -10,19 +10,26 @@ import './style.css';
 const PER_PAGE = 9;
 
 const EventList = () => {
-  // eslint-disable-next-line no-unused-vars
-  const [categorie, setCategorie] = useState('Toute');
-  const chooseCategorie = (cat) => {
-    setCategorie(cat);
+  const { data, error } = useData();
+  const [type, setType] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [filterType, setFilterType] = useState(null);
+
+  const changeType = (evtType) => {
+    setCurrentPage(1);
+    setType(evtType);
+    setFilterType(evtType);
   };
 
-  const { data, error } = useData();
-  const [type, setType] = useState();
-  const [currentPage, setCurrentPage] = useState(1);
-  // eslint-disable-next-line no-unused-vars
-  const [filterType, setFilterType] = useState(1);
-  const filteredEvents = ((!type ? data?.events : data?.events) || []).filter(
-    (event, index) => {
+  const sortedEvents = data?.events
+    ? [...data.events].sort(
+        (evtA, evtB) => new Date(evtB.data) - new Date(evtA.data)
+      )
+    : [];
+
+  const filteredEvents = ((!type ? sortedEvents : sortedEvents) || [])
+    .filter((event) => filterType === null || event.type === filterType)
+    .filter((event, index) => {
       if (
         (currentPage - 1) * PER_PAGE <= index &&
         PER_PAGE * currentPage > index
@@ -30,15 +37,7 @@ const EventList = () => {
         return true;
       }
       return false;
-    }
-  );
-  const changeType = (evtType) => {
-    setCurrentPage(1);
-    setType(evtType);
-    setFilterType(evtType);
-  };
-
-  console.log(type);
+    });
 
   const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
   const typeList = new Set(data?.events.map((event) => event.type));
@@ -51,7 +50,6 @@ const EventList = () => {
         <>
           <h3 className="SelectTitle">Catégories</h3>
           <Select
-            chooseCategorie={chooseCategorie}
             selection={Array.from(typeList)}
             onChange={(value) => (value ? changeType(value) : changeType(null))}
           />
