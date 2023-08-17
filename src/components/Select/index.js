@@ -20,6 +20,8 @@ const Select = ({
     setCollapsed(newValue);
   };
 
+  const handleUseContext = () => useContext(value);
+
   return (
     <div className={`SelectContainer ${type}`} data-testid="select-testid">
       {label && <div className="label">{label}</div>}
@@ -42,7 +44,7 @@ const Select = ({
                     defaultChecked={value === s}
                     name="selected"
                     type="radio"
-                    onClick={() => useContext(value)}
+                    onClick={() => handleUseContext}
                   />{' '}
                   {s}
                 </li>
