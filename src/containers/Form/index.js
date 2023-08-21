@@ -1,3 +1,5 @@
+// Correction : Utilisation de la props onSuccess onClick du boutton Submit ligne 50 - permet de muter le state sending de false à true et de modifier une dépendance de sendContent afind d'utiliser useCallBack.
+
 import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import Field, { FIELD_TYPES } from '../../components/Field';
@@ -26,6 +28,7 @@ const Form = ({ onSuccess, onError }) => {
     },
     [onSuccess, onError]
   );
+
   return (
     <form onSubmit={sendContact}>
       <div className="row">
@@ -43,6 +46,7 @@ const Form = ({ onSuccess, onError }) => {
           <Button
             type={BUTTON_TYPES.SUBMIT}
             disabled={sending}
+            // Ajout d'une onClick afin d'apporter la valeur true.
             onClick={onSuccess}
           >
             {sending ? 'En cours' : 'Envoyer'}

@@ -1,3 +1,5 @@
+// Correction : ajout d'une div permettant d'ajout une key au Slider.
+
 import { useEffect, useState } from 'react';
 import { useData } from '../../contexts/DataContext';
 import { getMonth } from '../../helpers/Date';
@@ -14,6 +16,7 @@ const Slider = () => {
 
   const nextCard = () => {
     setTimeout(
+      // Précédement été index + 1. Résultat => envoyé sur du vide car n'aviat plus de photo.
       () => setIndex(index + 1 < byDateDesc?.length ? index + 1 : 0),
       5000
     );
@@ -26,7 +29,7 @@ const Slider = () => {
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
-        // modif <> </>
+        // Ajout d'une div avec une key
         <div key={event.title}>
           <div
             // modif event.title -> event.id
@@ -48,11 +51,11 @@ const Slider = () => {
             <div className="SlideCard__pagination">
               {byDateDesc?.map((_, radioIdx) => (
                 <input
-                  // modif key={`${event.id}`}
+                  // modif. précédement key={`${event.id}`}
                   key={`${_.title}`}
                   type="radio"
                   name="radio-button"
-                  // modif idx -> index
+                  // modif. Précédement idx -> index
                   checked={index === radioIdx}
                   onChange={() => null}
                 />

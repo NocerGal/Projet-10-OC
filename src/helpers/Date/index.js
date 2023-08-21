@@ -1,3 +1,5 @@
+// Corrections : modification de l'objet month en partant de 0 à 11 et non pas de 1 à 12.
+
 export const MONTHS = {
   0: 'janvier',
   1: 'février',

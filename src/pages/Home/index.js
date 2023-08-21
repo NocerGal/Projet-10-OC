@@ -1,3 +1,6 @@
+/* eslint-disable import/no-unresolved */
+// Corrections : useData import remplacer last par data. last ne correspondait à aucun tableau de données. Ciblage de l'objet events de quel on partira de 0, 0 étant la date la plus récente dans sa gestion dans pour les props.
+
 import Menu from '../../containers/Menu';
 import ServiceCard from '../../components/ServiceCard';
 import EventCard from '../../components/EventCard';
@@ -13,6 +16,7 @@ import Modal from '../../containers/Modal';
 import { useData } from '../../contexts/DataContext';
 
 const Page = () => {
+  // Correction de last par data. Last ne correspondait à aucune base de données.
   const { data } = useData();
 
   return (
@@ -115,6 +119,7 @@ const Page = () => {
       <footer className="row">
         <div className="col presta">
           <h3>Notre derniére prestation</h3>
+          {/* Correction de last par data qui est le bon tableau. Ciblage de l'objet events de quel on partira de 0, 0 étant la date la plus récente dans sa gestion.  */}
           <EventCard
             imageSrc={data?.events[0].cover || ''}
             title={data?.events[0].title || ''}
