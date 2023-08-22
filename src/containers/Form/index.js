@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 // Correction : Utilisation de la props onSuccess onClick du boutton Submit ligne 50 - permet de muter le state sending de false à true et de modifier une dépendance de sendContent afind d'utiliser useCallBack.
 
 import { useCallback, useState } from 'react';
@@ -21,6 +22,7 @@ const Form = ({ onSuccess, onError }) => {
       try {
         await mockContactApi();
         setSending(false);
+        onSuccess();
       } catch (err) {
         setSending(false);
         onError(err);
@@ -43,12 +45,7 @@ const Form = ({ onSuccess, onError }) => {
             titleEmpty
           />
           <Field placeholder="" label="Email" />
-          <Button
-            type={BUTTON_TYPES.SUBMIT}
-            disabled={sending}
-            // Ajout d'une onClick afin d'apporter la valeur true.
-            onClick={onSuccess}
-          >
+          <Button type={BUTTON_TYPES.SUBMIT} disabled={sending}>
             {sending ? 'En cours' : 'Envoyer'}
           </Button>
         </div>
